@@ -13,8 +13,7 @@ class Product < ApplicationRecord
     format: { with: /\A[a-zA-Z\s'-]+\z/ },
     uniqueness: { case_sensitive: false }
   validates :description, presence: true,
-    length: { minimum: 3, maximum: 150 },
-    format: { with: /\A[a-zA-Z\s'-]+\z/ }
+    length: { minimum: 3, maximum: 150 }
   validates :price, presence: true,
     length: { minimum: 1, maximum: 5 },
     format: { with: /\A\d+(?:\.\d{0,2})?\z/ }

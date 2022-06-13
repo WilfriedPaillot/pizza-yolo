@@ -10,7 +10,6 @@ class Restaurant < ApplicationRecord
     length: { maximum: 160 }, 
     format: { with: /\A[a-zA-Z0-9\s,'.-]+\z/ }
   validates :zipcode, presence: true, 
-    numericality: { only_integer: true, greater_than: 01000, less_or_equal_to: 99138 } 
     length: { is: 5 }, 
     format: { with: /\A(([0-8][1-9])|(9[0-5]))[0-9]{3}|((97[1-8])[0-9]{2})|((98[1-8])[0-9]{2})|99138\z/ }
   validates :city, presence: true, 
@@ -21,7 +20,6 @@ class Restaurant < ApplicationRecord
     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
     uniqueness: { case_sensitive: false }
   validates :phone, presence: true,
-    numericality: { only_integer: true, greater_than: 0100000000, less_or_equal_to: 0599999999 },
-    length: { is: 10 }
+    length: { is: 10 },
     format: { with: /\A[0]{1}[1-7]{1}[0-9]{8}\z/ }
 end
