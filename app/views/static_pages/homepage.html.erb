@@ -1,0 +1,16 @@
+<h1>StaticPages#homepage</h1>
+<p>Find me in app/views/static_pages/homepage.html.erb</p>
+
+
+<% @products.each do |product| %>
+  <ul>
+    <%= image_tag(product.image_url) %>
+    <li><%= product.name %></li>
+    <li><%= product.description %></li>
+    <li><%= product.price %> &euro;</li>
+  </ul>
+  <%= link_to "Voir", root_path %>
+  
+  <% end %>
+
+<%= link_to 'Carte', root_path %>
