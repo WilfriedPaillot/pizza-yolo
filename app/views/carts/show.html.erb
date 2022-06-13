@@ -1,0 +1,23 @@
+<h1>Carts#show</h1>
+<p>Find me in app/views/carts/show.html.erb</p>
+
+
+Cart de <%= current_user.email %>
+<br>
+ID du cart <%= @cart.id %>
+
+<br>
+
+<% unless @cart.products.empty? %>
+  <% @products.each do |product| %>
+    <%= product.product.name %>
+    <%= product.product.price %> &euro; <br>
+    <%= product.quantity %> <br>
+    <%= product.subtotal_price %> &euro; <br>
+  <%end%>
+    <p>TOTAL : <%= @cart.total_price %> &euro; <br></p> 
+<% else %>
+  <p>Votre panier est vide</p>
+<% end %>
+
+<%#= link_to "Payer", checkout_path(@cart), method: :post %>
