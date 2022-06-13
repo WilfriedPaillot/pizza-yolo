@@ -1,0 +1,12 @@
+<h1>Products#show</h1>
+<p>Find me in app/views/products/show.html.erb</p>
+
+<%= image_tag(@product.image_url) %>
+<br>
+<%= @product.name %>
+<br>
+<%= @product.description %>
+<br>
+<%= @product.price %> &euro;
+
+<%= link_to "Ajout panier", root_path %>
