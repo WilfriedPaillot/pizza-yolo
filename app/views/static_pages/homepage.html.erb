@@ -9,8 +9,8 @@
     <li><%= product.description %></li>
     <li><%= product.price %> &euro;</li>
   </ul>
-  <%= link_to "Voir", root_path %>
+  <%= link_to "Voir", product_path(product) %>
   
   <% end %>
 
-<%= link_to 'Carte', root_path %>
+<%= link_to 'Carte', products_path %>
