@@ -9,6 +9,5 @@
     <li><%= product.price %> &euro;</li>
   </ul>
 
-  <%= link_to "Ajout panier", root_path %>
-  
+  <%= link_to "Ajout panier", cart_products_path(id: product.id), method: :post %>
 <% end %>
