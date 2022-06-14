@@ -31,6 +31,31 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <div class="field">
+    <%= f.label :firstname, 'Prénom' %>
+    <%= f.text_field :firstname, autocomplete: "first_name" %>
+  </div>
+  <div class="field">
+    <%= f.label :lastname, 'Nom' %>
+    <%= f.text_field :lastname, autocomplete: "last_name" %>
+  </div>
+  <div class="field">
+    <%= f.label :address, 'Adresse' %>
+    <%= f.text_field :address, autocomplete: "address" %>
+  </div>
+  <div class="field">
+    <%= f.label :zipcode, 'Code postal' %>
+    <%= f.text_field :zipcode, autocomplete: "zipcode" %>
+  </div>
+  <div class="field">
+    <%= f.label :city, 'Ville' %>
+    <%= f.text_field :city, autocomplete: "city" %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, 'Téléphone' %>
+    <%= f.text_field :phone, autocomplete: "phone" %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
