@@ -20,4 +20,4 @@ ID du cart <%= @cart.id %>
   <p>Votre panier est vide</p>
 <% end %>
 
-<%#= link_to "Payer", checkout_path(@cart), method: :post %>
+<%= link_to "Payer", checkout_create_path, method: :post, remote: true %>
