@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   has_many :order_products
   has_many :products, through: :order_products
 
-  validates :references, presence: true,
+  validates :reference, presence: true,
     length: { minimum: 5, maximum: 255 },
     format: { with: /\A[a-zA-Z0-9]+\z/ }
   validates :total, presence: true,
