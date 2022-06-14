@@ -65,3 +65,7 @@ gem "devise", "~> 4.8"
 
 gem "faker", "~> 2.21"
 gem "database_cleaner", "~> 2.0"
+
+gem "stripe", "~> 6.3"
+
+gem "dotenv-rails", "~> 2.7"
