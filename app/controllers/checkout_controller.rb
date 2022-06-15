@@ -1,4 +1,6 @@
 class CheckoutController < ApplicationController
+  before_action :profil_completed, only: [:create]
+
   def new
   end
 
@@ -65,4 +67,14 @@ class CheckoutController < ApplicationController
     puts "Payment canceled"
   end
 
+  def profil_completed
+    current_user.attributes.each do |key, value|
+      unless key = "reset_password_token"
+        if value.nil?
+          redirect_to edit_user_registration_path(current_user.id), notice: "Please complete your profile"  and return
+        end
+      end
+    end
+  end
+  
 end
