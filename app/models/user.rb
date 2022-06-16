@@ -37,6 +37,26 @@ class User < ApplicationRecord
       message: "doit être composé de 10 chiffres et commencer par 0" }, 
   on: :update
 
+  def status
+    if self.orders.any?
+      stage = self.orders.pluck(:total).sum
+      case stage
+        when 0...100
+          status = 'Gouteur'
+        when 100...250
+          status = 'Petit gourmand'
+        when 250...500
+          status = 'Gourmand'
+        else
+          status = 'Gourmand d\'élite'
+        end
+    end
+  end
+
+  def fullname
+    "#{firstname} #{lastname}"
+  end
+
   private
   def set_default_role
     self.role ||= :client
