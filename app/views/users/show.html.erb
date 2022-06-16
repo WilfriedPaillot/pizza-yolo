@@ -1,0 +1,27 @@
+<h1>Users#show</h1>
+
+<h2>Status</h2>
+<p><%= current_user.fullname %> vous avancez dans votre rang de <%= current_user.status %>.</p> 
+
+<h2>Vos commandes</h2>
+
+<table>
+<% if @orders.any? %>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.reference %></td>
+      <td><%= order.created_at.strftime('%d/%m/%Y à %H:%M') %></td>
+      <td><%= order.total %>&euro;</td>
+    </tr>    
+  <% end %>
+<% else %>
+  <tr>
+    <td colspan="3">Aucune commande</td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= link_to 'Retour', :back, class: 'btn btn-primary' %>
+<%= link_to 'Editer', edit_user_registration_path(@user), class: 'btn btn-primary' %>
