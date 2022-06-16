@@ -1,9 +1,30 @@
-<% unless user_signed_in? %>
-  <%= link_to "Se connecter", new_user_session_path %>
-  <%= link_to "S'inscrire", new_user_registration_path %>
-<% else %>
-  <%= link_to "Panier", cart_path(current_user.cart) %>
-  <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete %>
-<% end %>
-  <%= link_to "Produits", products_path %>
-  <%= link_to "Accueil", root_path %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <%= link_to root_path, class: 'navbar-brand' do %>
+      <%= image_tag 'logo.png', alt: 'Logo pizzaYolo', height: '50px' %>
+      <span class="navbar-brand">PizzaYolo</span>
+    <%end%>
+    <%= button_tag class: 'navbar-toggler', type: 'button', 
+      data: {'bs-toggle': 'collapse', 'bs-target': '#navbarNavAltMarkup'}, 
+      aria: { controls: 'navbarNavAltMarkup', expanded: 'false', label: 'Toggle navigation'} do %>
+      <span class="navbar-toggler-icon"></span>
+    <%end%>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <%= link_to 'Offres', root_path(anchor: 'offres'), class: 'nav-link' %>
+        <%= link_to 'Services', root_path(anchor: 'services'), class: 'nav-link' %>
+        <%= link_to 'Carte', products_path, class: 'nav-link' %>
+        <%= link_to 'Contact', root_path, class: 'nav-link' %>
+      </div>
+    </div>
+    <div class='navbar-nav'>
+      <% if user_signed_in? %>
+        <%= link_to 'Panier', cart_path(current_user.cart), class: 'nav-link' %>
+        <%= link_to 'Mon compte', edit_user_registration_path(current_user), class: 'nav-link' %>
+        <%= link_to 'Déconnexion', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+      <%else%>
+        <%= link_to 'Connexion', new_user_session_path, class: 'nav-link' %>
+      <%end%>
+    </div>
+  </div>
+</nav>
