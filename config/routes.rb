@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'static_pages#homepage'
   devise_for :users
-  
+  resources :users, only: [:show]
   resources :products
   resources :carts
   resources :cart_products
