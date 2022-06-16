@@ -1,5 +1,17 @@
 <h1>Users#show</h1>
 
+<h2>Profil</h2>
+<p>
+  <%= current_user.fullname %><br>
+  <%= current_user.address %><br>
+  <%= current_user.zipcode %> <%= current_user.city %>
+</p>
+
+<p><%= current_user.email %></p>
+<p><%= current_user.phone %></p>
+
+<%= link_to 'Editer', edit_user_registration_path(@user), class: 'btn btn-primary' %>
+
 <h2>Status</h2>
 <p><%= current_user.fullname %> vous avancez dans votre rang de <%= current_user.status %>.</p> 
 
@@ -24,4 +36,3 @@
 
 
 <%= link_to 'Retour', :back, class: 'btn btn-primary' %>
-<%= link_to 'Editer', edit_user_registration_path(@user), class: 'btn btn-primary' %>
