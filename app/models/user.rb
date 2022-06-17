@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :restaurants
-  has_one :cart
+  has_one :cart, dependent: :destroy
 
   validates :firstname, :lastname, :address, :zipcode, :city, :email, :phone, presence: true, 
     allow_blank: true,
