@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   after_initialize :set_default_role, :if => :new_record?
+  after_create :send_welcome_email 
   after_save :set_user_cart
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -57,6 +58,10 @@ class User < ApplicationRecord
     "#{firstname} #{lastname}"
   end
 
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_now
+  end
+  
   private
   def set_default_role
     self.role ||= :client
@@ -65,5 +70,6 @@ class User < ApplicationRecord
   def set_user_cart
     self.cart ||= Cart.create(user: self)
   end
+
 
 end
