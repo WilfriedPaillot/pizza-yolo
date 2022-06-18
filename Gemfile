@@ -76,3 +76,5 @@ gem "bootstrap", "~> 5.1"
 gem "jquery-rails", "~> 4.5"
 
 gem "mailjet", "~> 1.7"
+
+gem "administrate", "~> 0.17.0"
