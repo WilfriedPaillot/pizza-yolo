@@ -7,7 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
 
-  enum role: [:client, :admin]
+  enum role: [:client, :manager, :admin]
   
   has_many :orders, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -19,7 +19,7 @@ class User < ApplicationRecord
   on: :create
   validates :firstname, :lastname, presence: true, 
     length: { minimum: 2, maximum: 20, message: "doit être compris entre 2 et 20 caractères" }, 
-    format: { with: /\A[a-zA-Z\s\-\']+\z/ , message: "ne doit contenir que des lettres" },
+    format: { with: /\A[a-zA-Z\-\'\s\é\è\ê\ç]+\z/ , message: "ne doit contenir que des lettres" },
   on: :update
   validates :address, presence: true, 
     length: { minimum: 5, maximum: 100 }, 
@@ -30,7 +30,7 @@ class User < ApplicationRecord
   on: :update
   validates :city, presence: true, 
     length: { minimum: 2, maximum: 20 }, 
-    format: { with: /\A[a-zA-Z\-\'\s]+\z/ }, 
+    format: { with: /\A[a-zA-Z\-\'\s\é\è\ê\ç]+\z/ }, 
   on: :update
   validates :phone, presence: true, 
     length: { is: 10, message: "doit être composé de 10 chiffres" }, 
