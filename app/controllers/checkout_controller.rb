@@ -51,7 +51,7 @@ class CheckoutController < ApplicationController
 
     @order = Order.create!(
       user_id: current_user.id,
-      total: @payment.amount / 100,
+      total: (@payment.amount.to_f) / 100,
       reference: @payment.created
     )
 
