@@ -10,5 +10,22 @@ Rails.application.routes.draw do
     get "cancel", to: "checkout#cancel", as: "checkout_cancel"
     get "success", to: "checkout#success", as: "checkout_success"
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # Added by administrate gem
+  namespace :admin do
+    resources :users
+    resources :orders
+    resources :order_products
+    resources :carts
+    # resources :cart_products
+    resources :categories
+    resources :products
+    resources :ingredients
+    resources :units
+    resources :product_ingredients
+    resources :restaurants
+    resources :comments
+
+    root to: "carts#index"
+  end
 end
