@@ -11,4 +11,12 @@ class CartProduct < ApplicationRecord
   def subtotal_price
     self.product.price * self.quantity
   end
+
+  def increment_quantity
+    self.quantity += 1
+  end
+
+  def decrement_quantity
+    self.quantity -= 1
+  end
 end
