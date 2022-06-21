@@ -13,6 +13,7 @@ class CartProductsController < ApplicationController
       @cart_product = CartProduct.create!(
         cart_id: current_user.cart.id,
         product_id: @product.id,
+        quantity: params[:quantity] || 1
       )
     else
       @cart_product = CartProduct.find_by(cart_id: current_user.cart.id, product_id: @product.id)
@@ -28,7 +29,12 @@ class CartProductsController < ApplicationController
     @cart = Cart.find(current_user.cart.id)
     @product = Product.find(params[:id])
     @cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: @product.id)
-    @cart_product.update(quantity: params[:quantity])
+    new_quantity = params[:increment].present? && params[:increment] == "true" ? @cart_product.increment_quantity : @cart_product.decrement_quantity
+    unless new_quantity == 0
+      @cart_product.update!(quantity: new_quantity)
+    else
+      @cart_product.destroy
+    end
     
     respond_to do |format|
       format.html { redirect_to cart_path(@cart) }
