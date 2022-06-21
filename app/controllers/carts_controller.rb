@@ -16,12 +16,10 @@ class CartsController < ApplicationController
   end
 
   def show
-    # si le current_user a un cart, on le récupère
     if current_user.cart != nil
       @cart = current_user.cart
-      @products = @cart.cart_products
+      @products = @cart.cart_products.order(:created_at)
     else
-      # sinon on crée un cart vide
       @cart = Cart.new(user_id: current_user.id)
       @cart.save!
     end
