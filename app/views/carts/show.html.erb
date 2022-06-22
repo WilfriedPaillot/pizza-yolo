@@ -1,23 +1,32 @@
 <h1>Carts#show</h1>
-<p>Find me in app/views/carts/show.html.erb</p>
-
-
-Cart de <%= current_user.email %>
-<br>
-ID du cart <%= @cart.id %>
-
 <br>
 
-<% unless @cart.products.empty? %>
-  <% @products.each do |product| %>
-    <%= product.product.name %>
-    <%= product.product.price %> &euro; <br>
-    <%= product.quantity %> <br>
-    <%= product.subtotal_price %> &euro; <br>
-  <%end%>
-    <p>TOTAL : <%= @cart.total_price %> &euro; <br></p> 
+<% unless @cart_products.empty? %>
+  <% @cart_products.each do |categorie, cart_product| %>
+    <h2 class="mt-5">Vos<%= pluralize("",categorie.name.downcase) %></h2>
+    <hr>
+    <% cart_product.each do |cp| %>
+      <div id="cp_<%=cp.id%>">
+        <%= cp.product.name %>  
+        <br>
+        Quantité: 
+        <%= link_to "-", cart_product_path(cart_product, decrement: "true"), method: 'put', class: 'btn btn-sm btn-outline-primary' %>
+        <span class="mx-3 fw-bold"><%= cp.quantity %></span>
+        <%= link_to "+", cart_product_path(cart_product, increment: "true"), method: 'put', class: 'btn btn-sm btn-outline-primary' %>
+        <br>
+        Sous-total: <%= cp.quantity * cp.product.price %> &euro;
+      </div>
+    <%end%>
+  <% end %>
+<hr>
+  <p class='fs-3'>
+    TOTAL : <%= @cart.total_price %> &euro; <br>
+    <%= link_to "Payer", checkout_create_path, method: :post, remote: true, class: 'btn btn-outline-primary' %>
+  </p> 
+<hr>
+  <%= link_to "Retour", products_path, class: 'btn btn-primary' %>
+  <%= link_to "Vider le panier", @cart, method: :delete, class: 'btn btn-outline-danger' %>
 <% else %>
   <p>Votre panier est vide</p>
+  <%= link_to "La carte", products_path, class: 'btn btn-primary' %>
 <% end %>
-
-<%= link_to "Payer", checkout_create_path, method: :post, remote: true %>
