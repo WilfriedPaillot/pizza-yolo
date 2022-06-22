@@ -18,10 +18,20 @@ class CartsController < ApplicationController
   def show
     if current_user.cart != nil
       @cart = current_user.cart
-      @products = @cart.cart_products.order(:created_at)
+      # @products = @cart.cart_products.order(:created_at)
+      # @products = @cart.cart_products.order(:created_at).map(&:product)
+      @cart_products = @cart.cart_products.includes(:product).group_by { |cp| cp.product.category }.sort_by { |category, products| category.id }    
     else
       @cart = Cart.new(user_id: current_user.id)
       @cart.save!
+    end
+  end
+
+  def destroy
+    @cart.cart_products.destroy_all
+    respond_to do |format|
+      format.html { redirect_to @cart, notice: 'Cart was successfully destroyed.' }
+      format.js {}
     end
   end
 
