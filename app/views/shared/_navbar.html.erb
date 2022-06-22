@@ -19,7 +19,12 @@
     </div>
     <div class='navbar-nav'>
       <% if user_signed_in? %>
-        <%= link_to 'Panier', cart_path(current_user.cart), class: 'nav-link' %>
+        <%= link_to cart_path(current_user.cart), class: 'btn btn-outline-primary position-relative' do %>
+          <span>Panier</span>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <%= current_user.cart.total_products %>
+          </span>
+        <%end%>
         <%= link_to 'Mon compte', user_path(current_user), class: 'nav-link' %>
         <%= link_to 'Déconnexion', destroy_user_session_path, method: :delete, class: 'nav-link' %>
       <%else%>
