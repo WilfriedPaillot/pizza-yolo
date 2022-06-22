@@ -21,14 +21,13 @@ class CartProductsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to cart_path(current_user.cart) }
+      format.html { redirect_to products_path }
+      format.js
     end
   end
 
   def update
-    @cart = Cart.find(current_user.cart.id)
-    @product = Product.find(params[:id])
-    @cart_product = CartProduct.find_by(cart_id: @cart.id, product_id: @product.id)
+    @cart_product = CartProduct.find(params[:id])
     new_quantity = params[:increment].present? && params[:increment] == "true" ? @cart_product.increment_quantity : @cart_product.decrement_quantity
     unless new_quantity == 0
       @cart_product.update!(quantity: new_quantity)
@@ -37,7 +36,7 @@ class CartProductsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { redirect_to cart_path(@cart) }
+      format.html { redirect_to :cart }
       format.js
     end
   end
