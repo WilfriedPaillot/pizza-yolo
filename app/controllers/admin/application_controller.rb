@@ -9,8 +9,8 @@ module Admin
     before_action :authenticate_role
 
     def authenticate_role
-      unless user_signed_in? && (current_user.role == 'manager' || current_user.role == 'admin')
-        flash[:alert] = "You must be a manager or an admin to access this page."
+      unless user_signed_in? && current_user.role == 'admin'
+        flash[:alert] = "You must be an admin to access this page."
         redirect_to root_path
       end
     end
