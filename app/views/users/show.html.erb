@@ -13,7 +13,11 @@
 <%= link_to 'Editer', edit_user_registration_path(@user), class: 'btn btn-primary' %>
 
 <h2>Status</h2>
+<% unless @orders.any? %>
+  <p>Passez votre 1ère commande pour débloquer votre nouveau status et gagner des réductions!</p>
+<% else %>
 <p><%= current_user.fullname %> vous avancez dans votre rang de <%= current_user.status %>.</p> 
+<% end %>
 
 <h2>Vos commandes</h2>
 
