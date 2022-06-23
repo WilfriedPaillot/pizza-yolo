@@ -10,9 +10,9 @@
         <%= cp.product.name %>  
         <br>
         Quantité: 
-        <%= link_to "-", cart_product_path(cart_product, decrement: "true"), method: 'put', class: 'btn btn-sm btn-outline-primary' %>
+        <%= link_to "-", cart_product_path(cart_product, decrement: "true"), method: 'put', class: 'btn btn-sm btn-outline-success', remote: true %>
         <span class="mx-3 fw-bold"><%= cp.quantity %></span>
-        <%= link_to "+", cart_product_path(cart_product, increment: "true"), method: 'put', class: 'btn btn-sm btn-outline-primary' %>
+        <%= link_to "+", cart_product_path(cart_product, increment: "true"), method: 'put', class: 'btn btn-sm btn-outline-success', remote: true %>
         <br>
         Sous-total: <%= cp.quantity * cp.product.price %> &euro;
       </div>
@@ -20,7 +20,7 @@
   <% end %>
 <hr>
   <p class='fs-3'>
-    TOTAL : <%= @cart.total_price %> &euro; <br>
+    <span id="total_cart">TOTAL : <%= @cart.total_price %> &euro; <br></span>
     <%= link_to "Payer", checkout_create_path, method: :post, remote: true, class: 'btn btn-outline-primary' %>
   </p> 
 <hr>

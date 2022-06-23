@@ -1,0 +1,5 @@
+document.getElementById('cp_<%=@cart_product.id%>').innerHTML = "";
+document.getElementById('cp_<%=@cart_product.id%>').insertAdjacentHTML('beforeend', "<%= j render 'cart_products/product', cp: @cart_product %>");
+
+document.getElementById('total_cart').innerHTML = ""
+document.getElementById('total_cart').innerHTML = "TOTAL : " + <%= @cart_product.cart.total_price %> + " &euro;";

@@ -37,7 +37,7 @@ class CartProductsController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to :cart }
-      format.js
+      format.js { }
     end
   end
 end
