@@ -21,7 +21,7 @@
       <% if user_signed_in? %>
         <%= link_to cart_path(current_user.cart), class: 'btn btn-custom position-relative' do %>
           <span>Panier</span>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+          <span id="cart_product_sum" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
             <%= current_user.cart.total_products %>
           </span>
         <%end%>
