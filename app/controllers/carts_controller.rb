@@ -20,7 +20,11 @@ class CartsController < ApplicationController
       @cart = current_user.cart
       # @products = @cart.cart_products.order(:created_at)
       # @products = @cart.cart_products.order(:created_at).map(&:product)
-      @cart_products = @cart.cart_products.includes(:product).group_by { |cp| cp.product.category }.sort_by { |category, products| category.id }    
+      #@cart_products = @cart.cart_products.includes(:product).group_by { |cp| cp.product.category } 
+      @cart_products = @cart.cart_products.includes(:product).group_by { |cp| cp.product.category }.sort_by { |category, products| category.id }
+      @cart_products.each do |category, products|
+        products.sort_by! { |cp| cp.product.name }
+      end
     else
       @cart = Cart.new(user_id: current_user.id)
       @cart.save!
