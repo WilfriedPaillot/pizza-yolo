@@ -37,7 +37,7 @@
             <p class="card-text"><%= product.description %></p>
             <div class="d-flex justify-content-evenly">
               <%= link_to 'Découvrir', product, class:'btn-custom p-3' %>
-              <%= link_to 'Ajouter au panier', cart_products_path(id:product), method: :post, class:'btn-custom p-3' %>
+              <%= link_to 'Ajouter au panier', cart_products_path(id:product), method: :post, class:'btn-custom p-3', remote: true %>
             </div>
           </div>
         </div>
