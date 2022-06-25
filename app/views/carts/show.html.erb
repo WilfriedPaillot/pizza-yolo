@@ -1,32 +1,36 @@
+<div class="div-custom">
 <h1>Carts#show</h1>
 <br>
+</div>
 
 <% unless @cart_products.empty? %>
   <% @cart_products.each do |categorie, cart_product| %>
-    <h2 class="mt-5">Vos<%= pluralize("",categorie.name.downcase) %></h2>
-    <hr>
+      <h2 class="mt-5">Vos<%= pluralize("",categorie.name.downcase) %></h2>
+      <hr>
     <% cart_product.each do |cp| %>
-      <div id="cp_<%=cp.id%>">
-        <%= cp.product.name %>  
+      <div id="cp_<%=cp.id%>" class="py-3">
+        
+        <%= cp.product.name %>
         <br>
         Quantité: 
-        <%= link_to "-", cart_product_path(cart_product, decrement: "true"), method: 'put', class: 'btn btn-sm btn-outline-success', remote: true %>
+        <%= link_to "-", cart_product_path(cp, decrement: "true"), method: 'put', class: 'btn btn-sm btn-custom', remote: true %>
         <span class="mx-3 fw-bold"><%= cp.quantity %></span>
-        <%= link_to "+", cart_product_path(cart_product, increment: "true"), method: 'put', class: 'btn btn-sm btn-outline-success', remote: true %>
+        <%= link_to "+", cart_product_path(cp, increment: "true"), method: 'put', class: 'btn btn-sm btn-custom', remote: true %>
         <br>
         Sous-total: <%= cp.quantity * cp.product.price %> &euro;
+      
       </div>
     <%end%>
   <% end %>
 <hr>
   <p class='fs-3'>
     <span id="total_cart">TOTAL : <%= @cart.total_price %> &euro; <br></span>
-    <%= link_to "Payer", checkout_create_path, method: :post, remote: true, class: 'btn btn-outline-primary' %>
+    <%= link_to "Payer", checkout_create_path, method: :post, remote: true, class: 'btn btn-custom' %>
   </p> 
 <hr>
-  <%= link_to "Retour", products_path, class: 'btn btn-primary' %>
-  <%= link_to "Vider le panier", @cart, method: :delete, class: 'btn btn-outline-danger' %>
+  <%= link_to "Retour", products_path, class: 'btn btn-custom' %>
+  <%= link_to "Vider le panier", @cart, method: :delete, class: 'btn btn-custom' %>
 <% else %>
   <p>Votre panier est vide</p>
-  <%= link_to "La carte", products_path, class: 'btn btn-primary' %>
+  <%= link_to "La carte", products_path, class: 'btn btn-custom' %>
 <% end %>
