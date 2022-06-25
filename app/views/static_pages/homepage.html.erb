@@ -40,13 +40,16 @@
             <h5 class="card-title text-center fs-3"><%= product.name %></h5>
             <p class="card-text"><%= product.description %></p>
             <div class="d-flex justify-content-evenly">
-              <%= link_to 'Voir', product, class:'btn-custom p-3' %>
-              <%= link_to 'Ajouter au panier', cart_products_path(id:product), method: :post, class:'btn-custom p-3' %>
+              <%= link_to 'Découvrir', product, class:'btn-custom p-3' %>
+              <%#= link_to 'Ajouter au panier', cart_products_path(id:product), method: :post, class:'btn-custom p-3' %>
             </div>
           </div>
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="col-12 col-md-6 my-3 text-center">
+    <%= link_to 'Voir tous les produits', :products, class:'btn-custom p-3' %>
   </div>
 </section>
 
