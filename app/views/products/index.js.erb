@@ -1,0 +1,2 @@
+document.getElementById('products').innerHTML = "";
+document.getElementById('products').insertAdjacentHTML('beforeend', "<%= j render 'products/products', all_products: @products %>");
