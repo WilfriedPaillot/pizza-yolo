@@ -1,0 +1,24 @@
+@font-face {
+  font-family:'virgil';
+  src: asset-url('virgil.woff2') format('woff2');
+} 
+
+body {
+  font-family: "virgil";
+  font-size: 18px;
+}
+
+.btn-custom {
+  background:transparent;
+
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  border-bottom-right-radius: 225px 15px;
+  border-bottom-left-radius:15px 255px;
+  
+  border:solid 2px #41403E;
+  
+  &:hover {
+    box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
+  }
+}
