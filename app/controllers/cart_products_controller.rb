@@ -33,11 +33,12 @@ class CartProductsController < ApplicationController
       @cart_product.update!(quantity: new_quantity)
     else
       @cart_product.destroy
+      redirect_to cart_path(current_user.cart)
     end
     
     respond_to do |format|
       format.html { redirect_to :cart }
-      format.js { redirect_to :cart }
+      format.js { }
     end
   end
 end
