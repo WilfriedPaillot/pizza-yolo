@@ -8,30 +8,32 @@
 <%# search_bar %>
 <section class="row py-5 my-5">
   <nav class="nav nav-pills nav-fill border justify-content-center"></a>
-    <%= link_to 'Pizza', :products, class:'nav-link' %>
-    <%= link_to 'Desserts', :products, class:'nav-link' %>
-    <%= link_to 'Boissons', :products, class:'nav-link' %>
+    <%= link_to 'Pizza', products_path(category_id: 1), class:'nav-link' %>
+    <%= link_to 'Desserts', products_path(category_id: 4), class:'nav-link' %>
+    <%= link_to 'Boissons', products_path(category_id: 2), class:'nav-link' %>
   </nav>
 </section>
 
-
 <%# products %>
 <section class="row justify-content-center py-5 mt-5">
-  <div class="col-12 col-md-10 col-lg-8 mb-5">
-    <h2 class="text-center mb-2">Sélection <i class="fs-1">catégorie.name</i></h2>
-  </div>
-  <div class="row justify-content-between">
-    <% @products.each do |product| %>
+  <% @products.each do |categorie, products| %>
+    <div class="col-12 col-md-10 col-lg-8 mb-5">
+      <h2 class="text-center mb-2">Carte des <%= pluralize('',categorie.name.downcase) %></h2>
+      <h4 class="text-center fw-light"><%= categorie.description %></h4>
+    </div>
+
+    <div class="row justify-content-start mt-5">
+      <% products.each do |product| %>
       <div class="col-md-4 col-lg-4 mb-5">
         <div class="card border-0">
           <div class="d-flex justify-content-center align-items-center h-100">
             <%= image_tag "https://via.placeholder.com/150", class:'rounded-circle' %>
           </div>
           <div class="card-body">
-          <div class="d-flex-column text-center">
-            <h2><%= product.name %></h2>
-            <p class="fs-3"><%= product.price %><span class="fs-2"> &euro;</span></p>
-          </div>
+            <div class="d-flex-column text-center">
+              <h2><%= product.name %></h2>
+              <p class="fs-3"><%= product.price %><span class="fs-2"> &euro;</span></p>
+            </div>
             <p class="card-text"><%= product.description %></p>
             <div class="d-flex justify-content-evenly">
               <%= link_to 'Découvrir', product, class:'btn-custom p-3' %>
@@ -40,6 +42,7 @@
           </div>
         </div>
       </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 </section>
