@@ -1,8 +1,8 @@
 <%= cp.product.name %>  
 <br>
 Quantité: 
-<%= link_to "-", cart_product_path(cp, decrement: "true"), method: 'put', class: 'btn btn-sm btn-outline-success', remote: true %>
+<%= link_to "-", cart_product_path(cp, decrement: "true"), method: 'put', class: 'btn btn-sm btn-custom', remote: true %>
 <span class="mx-3 fw-bold"><%= cp.quantity %></span>
-<%= link_to "+", cart_product_path(cp, increment: "true"), method: 'put', class: 'btn btn-sm btn-outline-success', remote: true %>
+<%= link_to "+", cart_product_path(cp, increment: "true"), method: 'put', class: 'btn btn-sm btn-custom', remote: true %>
 <br>
 Sous-total: <%= cp.quantity * cp.product.price %> &euro;
