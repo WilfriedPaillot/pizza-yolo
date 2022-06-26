@@ -54,24 +54,30 @@ class CheckoutController < ApplicationController
       total: (@payment.amount.to_f) / 100,
       reference: @payment.created
     )
-
-    @cart = current_user.cart
-    @cart.cart_products.each do |cart_product|
-      cart_product.destroy!
+    @cart_products = current_user.cart.cart_products
+    @cart_products.each do |cp|
+      OrderProduct.create!(
+        order_id: @order.id,
+        product_id: cp.product_id,
+        quantity: cp.quantity
+      )
     end
 
-    redirect_to root_path, notice: "Payment successful"
+    @cart = current_user.cart
+    @cart.cart_products.destroy_all
+
+    redirect_to root_path, notice: "Paiement validé"
   end
 
   def cancel
-    puts "Payment canceled"
+    puts "Payment annulé"
   end
 
   def profil_completed
     current_user.attributes.each do |key, value|
       unless key = "reset_password_token"
         if value.nil?
-          redirect_to edit_user_registration_path(current_user.id), notice: "Please complete your profile"  and return
+          redirect_to edit_user_registration_path(current_user.id), notice: "Merci de compléter votre profil"  and return
         end
       end
     end
