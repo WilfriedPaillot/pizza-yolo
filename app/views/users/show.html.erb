@@ -84,8 +84,8 @@
               <td><%= sprintf('%.2f', order.total) %> €</td>
               <td>Livrée</td>
               <td>
-                <%= link_to order_product_path(order_id: order), class:'btn btn-sm btn-custom', remote: true do %>
-                  <i class="bi bi-arrow-right"></i>
+                <%= link_to order_path(order), class:'btn btn-sm btn-custom', remote: true do %>
+                  <i class="bi bi-plus"></i>
                 <% end %>
               </td>
             </tr>
