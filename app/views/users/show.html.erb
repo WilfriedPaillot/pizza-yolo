@@ -1,42 +1,109 @@
-<h1>Users#show</h1>
+<section class="row justify-content-center my-5">
+  <h1>Mon espace client</h1>
+  <div class="col-md-10 border py-3 mt-3 text-center">
+    <% unless @orders.any? %>
+      <p>Passez votre 1ère commande pour débloquer votre nouveau status et gagner des réductions!</p>
+    <% else %>
+      <p class="fs-4">Féliciations <%= current_user.fullname %> </p>
+      <p>vous avez atteint le rang de <%= current_user.status %>.</p> 
+    <% end %>
+      <%= link_to 'Commander', :products, class:'btn btn-custom p-2' %>
+  </div>
+</section>
 
-<h2>Profil</h2>
-<p>
-  <%= current_user.fullname %><br>
-  <%= current_user.address %><br>
-  <%= current_user.zipcode %> <%= current_user.city %>
-</p>
+<section class="row my-5">
+  <h2>Profil</h2>
+  <hr>
+  <div class="col-12 col-md-6">
+    <p>
+      <strong>Nom :</strong> <%= @user.lastname %>
+    </p>
+    <p>
+      <strong>Prénom :</strong> <%= @user.firstname %>
+    </p>
+    <p>
+      <strong>Adresse :</strong> <%= @user.address %>
+    </p>
+    <p>
+      <strong>Code postal :</strong> <%= @user.zipcode %>
+    </p>
+    <p>
+      <strong>Ville :</strong> <%= @user.city %>
+    </p>
+    <p>
+      <strong>Téléphone :</strong> <%= @user.phone %>
+    </p>
+    <p>
+      <strong>Email :</strong> <%= @user.email %>
+    </p>
+    <%= link_to 'Editer', edit_user_registration_path(@user), class: 'btn btn-lg btn-custom' %>
+  </div>
+  <div id="restaurant_info" class="col-12 col-md-6">
+    <p id="selected_restaurant" class="mb-5">
+      <strong>Mon restaurant préféré :</strong>
+      <% if @user.restaurants.empty? %>
+        <%= link_to :user, remote: true do%>
+          A renseigner
+          <i class="bi bi-plus-circle"></i>
+        <%end%>
+      <% else %>
+        <%= @user.restaurants.name %>
+      <p> <strong>Adresse :</strong> <%= @user.restaurants.address %> </p>
+      <p> <strong>Code postal :</strong> <%= @user.restaurants.zipcode %> </p>
+      <p> <strong>Ville :</strong> <%= @user.restaurants.city %> </p>
+      <p> <strong>Téléphone :</strong> <%= @user.restaurants.phone %> </p>
+      <p> <strong>Email :</strong> <%= @user.restaurants.email %> </p>
+      <%= link_to 'Changer', :user, class: 'btn btn-lg btn-custom', remote: true %>
+      <% end %>
+    </p>
+  </div>
+</section>
 
-<p><%= current_user.email %></p>
-<p><%= current_user.phone %></p>
 
-<%= link_to 'Editer', edit_user_registration_path(@user), class: 'btn btn-primary' %>
+<section class="row my-5">
+  <h2>Historique des commandes</h2>
+  <hr>
+  <div class="col-12 col-md-6">
+    <table class="table table-striped table-hover">
+      <% if @orders.any? %>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Référence</th>
+            <th>Montant</th>
+            <th>Statut</th>
+            <th>Voir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
+              <td><%= order.reference %></td>
+              <%# Afficher le total avec 2 chiffres après la virgule %>
+              <td><%= sprintf('%.2f', order.total) %> €</td>
+              <td>Livrée</td>
+              <td>
+                <%= link_to root_path, class:'btn btn-sm btn-custom' do %>
+                  <i class="bi bi-arrow-right"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      <% else %>
+        <tr>
+          <td colspan="3">Aucune commande</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  
+  <div class="col-12 col-md-6">
+    <div id="order_details">
+      <%# AJAX RESPONSE ONLY %>
+    </div>
+  </div>
+</section>
 
-<h2>Status</h2>
-<% unless @orders.any? %>
-  <p>Passez votre 1ère commande pour débloquer votre nouveau status et gagner des réductions!</p>
-<% else %>
-<p><%= current_user.fullname %> vous avancez dans votre rang de <%= current_user.status %>.</p> 
-<% end %>
-
-<h2>Vos commandes</h2>
-
-<table>
-<% if @orders.any? %>
-  <% @orders.each do |order| %>
-    <tr>
-      <td><%= order.id %></td>
-      <td><%= order.reference %></td>
-      <td><%= order.created_at.strftime('%d/%m/%Y à %H:%M') %></td>
-      <td><%= order.total %>&euro;</td>
-    </tr>    
-  <% end %>
-<% else %>
-  <tr>
-    <td colspan="3">Aucune commande</td>
-  </tr>
-<% end %>
-</table>
-
-
-<%= link_to 'Retour', :back, class: 'btn btn-primary' %>
+<%= link_to 'Retour', :products, class: 'btn btn-custom' %>
