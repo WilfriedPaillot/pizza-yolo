@@ -17,14 +17,14 @@
         <span class="mx-3 fw-bold"><%= cp.quantity %></span>
         <%= link_to "+", cart_product_path(cp, increment: "true"), method: 'put', class: 'btn btn-sm btn-custom', remote: true %>
         <br>
-        Sous-total: <%= cp.quantity * cp.product.price %> &euro;
+        Sous-total: <%= sprintf('%.2f', cp.quantity * cp.product.price) %> &euro;
       
       </div>
     <%end%>
   <% end %>
 <hr>
   <p class='fs-3'>
-    <span id="total_cart">TOTAL : <%= @cart.total_price %> &euro; <br></span>
+    <span id="total_cart">TOTAL : <%= sprintf('%.2f', @cart.total_price) %> &euro; <br></span>
     <%= link_to "Payer", checkout_create_path, method: :post, remote: true, class: 'btn btn-custom' %>
   </p> 
 <hr>
