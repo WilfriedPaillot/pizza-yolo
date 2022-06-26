@@ -73,6 +73,7 @@
             <th>Montant</th>
             <th>Statut</th>
             <th>Voir</th>
+            <th>Facture</th>
           </tr>
         </thead>
         <tbody>
@@ -80,12 +81,18 @@
             <tr>
               <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
               <td><%= order.reference %></td>
-              <%# Afficher le total avec 2 chiffres après la virgule %>
               <td><%= sprintf('%.2f', order.total) %> €</td>
               <td>Livrée</td>
               <td>
                 <%= link_to order_path(order), class:'btn btn-sm btn-custom', remote: true do %>
                   <i class="bi bi-plus"></i>
+                <% end %>
+              </td>
+              <td>
+                <% unless order.invoice_url.blank? %>
+                  <%= link_to "#{order.invoice_url}", target: '_blank', class:'btn btn-sm btn-custom' do %>
+                    <i class="bi bi-download"></i>
+                  <% end %>
                 <% end %>
               </td>
             </tr>
