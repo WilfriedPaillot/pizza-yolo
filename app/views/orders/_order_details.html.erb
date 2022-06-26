@@ -1,0 +1,29 @@
+<section class="px-5 pt-1">
+  <h3>Détails de la commande N°<%= order.reference %></h3>
+  <hr>
+
+  <% order.order_products.includes(:product).group_by { |op| op.product.category }.each do |categorie, ops| %>
+    <h4 class="fs-3"><%= pluralize('',categorie.name.capitalize) %></h4>
+    <% ops.each do |op| %>
+    <div class="row mb-1">
+      <div class="col-6">
+        <p class="ms-3"><%= op.product.name %> </p>
+      </div> 
+      <div class="col-6">
+        <p class="text-muted text-end">Quantité: <%= op.quantity %> </p>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+
+    <div class="row mt-3">
+    <hr>
+      <div class="col-6">
+        <h4 id="order_infos">Total: <%=order.total%> &euro;</h4>
+      </div> 
+      <div class="col-6">
+        <p class="text-muted text-end">
+        Nombre d'articles: <%=order.order_products.sum(&:quantity)%></p>
+      </div>
+    <hr>
+  </section>

@@ -1,0 +1,2 @@
+document.getElementById('order_details').innerHTML = '';
+document.getElementById('order_details').insertAdjacentHTML('beforeend', "<%= j render 'orders/order_details', order: @order %>");
