@@ -52,8 +52,10 @@ class CheckoutController < ApplicationController
     @order = Order.create!(
       user_id: current_user.id,
       total: (@payment.amount.to_f) / 100,
-      reference: @payment.created
+      reference: @payment.created,
+      invoice_url: @payment.charges.data[0].receipt_url
     )
+
     @cart_products = current_user.cart.cart_products
     @cart_products.each do |cp|
       OrderProduct.create!(
