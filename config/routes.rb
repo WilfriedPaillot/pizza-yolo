@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :products
   resources :carts
   resources :cart_products
-  resources :order_products
+  resources :orders
 
   scope "/checkout" do
     post "create", to: "checkout#create", as: "checkout_create"
