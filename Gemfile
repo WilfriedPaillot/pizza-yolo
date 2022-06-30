@@ -78,3 +78,5 @@ gem "jquery-rails", "~> 4.5"
 gem "mailjet", "~> 1.7"
 
 gem "administrate", "~> 0.17.0"
+
+gem "geocoder", "~> 1.8"
