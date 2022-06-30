@@ -1,21 +1,17 @@
-<section class="row py-5 my-5">
+<section class="row py-2 my-5">
   <div class="d-flex-column align-items-center justify-content-center text-center">
     <h1>Carte</h1>
     <p>Notre savoir-faire, pour vous satisfaire</p>
   </div>
-</section>
-
-<%# search_bar %>
-<section class="row py-5 my-5">
-  <nav class="nav nav-pills nav-fill border justify-content-center"></a>
-    <%= link_to 'Pizza', products_path(category_id: 1), class:'nav-link', remote: true %>
-    <%= link_to 'Desserts', products_path(category_id: 4), class:'nav-link', remote: true %>
-    <%= link_to 'Boissons', products_path(category_id: 2), class:'nav-link', remote: true %>
+  <nav class="nav nav-pills nav-fill justify-content-center"></a>
+    <%= link_to 'Pizza', products_path(category_id: 1), class:'btn btn-custom mx-md-3', remote: true %>
+    <%= link_to 'Desserts', products_path(category_id: 4), class:'btn btn-custom mx-md-3', remote: true %>
+    <%= link_to 'Boissons', products_path(category_id: 2), class:'btn btn-custom mx-md-3', remote: true %>
   </nav>
 </section>
 
 <%# products %>
-<section  id="products" class="row justify-content-center py-5 mt-5">
+<section  id="products" class="row justify-content-center py-2 mt-5">
   <% @products.each do |categorie, products| %>
     <div class="col-12 col-md-10 col-lg-8 mb-5">
       <h2 class="text-center mb-2">Carte des <%= pluralize('',categorie.name.downcase) %></h2>

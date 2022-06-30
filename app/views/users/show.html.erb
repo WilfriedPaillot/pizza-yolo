@@ -1,5 +1,5 @@
-<section class="row justify-content-center my-5">
-  <h1>Mon espace client</h1>
+<section class="row justify-content-center py-5">
+  <h1 class="mb-3">Mon espace client</h1>
   <div class="col-md-10 border py-3 mt-3 text-center">
     <% unless @orders.any? %>
       <p>Passez votre 1ère commande pour débloquer votre nouveau status et gagner des réductions!</p>
@@ -12,16 +12,16 @@
 </section>
 
 <section class="row my-5">
+  <div class="col-12 col-md-6">
   <h2>Profil</h2>
   <hr>
-  <div class="col-12 col-md-6">
     <p>
-      <strong>Nom :</strong> <%= @user.lastname %>
+      <strong>M./Mme :</strong> <%= @user.fullname %>
     </p>
-    <p>
-      <strong>Prénom :</strong> <%= @user.firstname %>
-    </p>
-    <p>
+    <!-- <p>
+      <strong>Prénom :</strong> <%#= @user.firstname %>
+    </p> %>
+    <p> -->
       <strong>Adresse :</strong> <%= @user.address %>
     </p>
     <p>
@@ -39,20 +39,21 @@
     <%= link_to 'Editer', edit_user_registration_path(@user), class: 'btn btn-lg btn-custom' %>
   </div>
   <div id="restaurant_info" class="col-12 col-md-6">
-    <p id="selected_restaurant" class="mb-5">
-      <strong>Mon restaurant préféré :</strong>
-      <% if @user.restaurants.empty? %>
+      <h2>Mon restaurant préféré</h2>
+      <hr>
+    <p id="selected_restaurant" class="">
+      <% if @user.restaurant.nil? %>
         <%= link_to :user, remote: true do%>
           A renseigner
           <i class="bi bi-plus-circle"></i>
         <%end%>
       <% else %>
-        <%= @user.restaurants.name %>
-      <p> <strong>Adresse :</strong> <%= @user.restaurants.address %> </p>
-      <p> <strong>Code postal :</strong> <%= @user.restaurants.zipcode %> </p>
-      <p> <strong>Ville :</strong> <%= @user.restaurants.city %> </p>
-      <p> <strong>Téléphone :</strong> <%= @user.restaurants.phone %> </p>
-      <p> <strong>Email :</strong> <%= @user.restaurants.email %> </p>
+      <p> <strong>Nom : </strong><%= @user.restaurant.name %></p>
+      <p> <strong>Adresse :</strong> <%= @user.restaurant.address %></p>
+      <p> <strong>Code postal :</strong> <%= @user.restaurant.zipcode %></p>
+      <p> <strong>Ville :</strong> <%= @user.restaurant.city %></p>
+      <p> <strong>Téléphone :</strong> <%= @user.restaurant.phone %></p>
+      <p> <strong>Email :</strong> <%= @user.restaurant.email %></p>
       <%= link_to 'Changer', :user, class: 'btn btn-lg btn-custom', remote: true %>
       <% end %>
     </p>
