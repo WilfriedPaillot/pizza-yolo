@@ -14,8 +14,8 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  has_many :restaurantsEmployees, dependent: :destroy
-  has_many :restaurants, through: :restaurantsEmployees
+  has_many :working_restaurants, foreign_key: 'employee', class_name: 'RestaurantEmployee', dependent: :destroy
+  has_many :restaurants, through: :working_restaurants
 
   validates :firstname, :lastname, :address, :zipcode, :city, :email, :phone, presence: true, 
     allow_blank: true,

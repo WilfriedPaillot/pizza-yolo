@@ -4,6 +4,9 @@ class Restaurant < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   has_many :clients, class_name: 'User'
+  has_many :restaurant_employees, dependent: :destroy
+  has_many :employees, through: :restaurant_employees, class_name: 'User'
+
   validates :name, presence: true, 
     length: { maximum: 50 },
     format: { with: /\A[a-zA-Z\s'-]+\z/ }
