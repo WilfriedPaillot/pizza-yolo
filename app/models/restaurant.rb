@@ -1,14 +1,15 @@
 class Restaurant < ApplicationRecord
   has_many :products
   has_many :comments, dependent: :destroy
-  belongs_to :user
+  has_many :orders, dependent: :destroy
 
+  has_many :clients, class_name: 'User'
   validates :name, presence: true, 
     length: { maximum: 50 },
     format: { with: /\A[a-zA-Z\s'-]+\z/ }
   validates :address, presence: true, 
     length: { maximum: 160 }, 
-    format: { with: /\A[a-zA-Z0-9\s,'.-]+\z/ }
+    format: { with: /\A[a-zA-Z0-9\s,'.-éàèêç]+\z/ }
   validates :zipcode, presence: true, 
     length: { is: 5 }, 
     format: { with: /\A(([0-8][1-9])|(9[0-5]))[0-9]{3}|((97[1-8])[0-9]{2})|((98[1-8])[0-9]{2})|99138\z/ }
@@ -21,5 +22,6 @@ class Restaurant < ApplicationRecord
     uniqueness: { case_sensitive: false }
   validates :phone, presence: true,
     length: { is: 10 },
-    format: { with: /\A[0]{1}[1-7]{1}[0-9]{8}\z/ }
+    format: { with: /\A[0]{1}[1-7|9]{1}[0-9]{8}\z/ }
+
 end
