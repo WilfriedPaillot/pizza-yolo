@@ -2,17 +2,20 @@ class User < ApplicationRecord
   after_initialize :set_default_role, :if => :new_record?
   after_create :send_welcome_email 
   after_save :set_user_cart
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  after_update :set_favorite_restaurant
+
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
 
   enum role: [:client, :manager, :admin]
-  
+
+  belongs_to :restaurant, optional: true
+  has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :restaurants
-  has_one :cart, dependent: :destroy
+
+  has_many :restaurantsEmployees, dependent: :destroy
+  has_many :restaurants, through: :restaurantsEmployees
 
   validates :firstname, :lastname, :address, :zipcode, :city, :email, :phone, presence: true, 
     allow_blank: true,
@@ -55,7 +58,7 @@ class User < ApplicationRecord
   end
 
   def fullname
-    "#{firstname} #{lastname}"
+    "#{firstname.capitalize} #{lastname.upcase}"
   end
 
   def send_welcome_email
@@ -71,5 +74,11 @@ class User < ApplicationRecord
     self.cart ||= Cart.create(user: self)
   end
 
+  def set_favorite_restaurant
+    if self.restaurant.nil?
+      restaurant = Restaurant.find_by(zipcode: self.zipcode) 
+      self.update!(restaurant: restaurant) unless restaurant.nil? 
+    end
+  end
 
 end
