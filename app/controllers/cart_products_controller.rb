@@ -13,7 +13,7 @@ class CartProductsController < ApplicationController
       @cart_product = CartProduct.create!(
         cart_id: current_user.cart.id,
         product_id: @product.id,
-        quantity: params[:quantity] || 1
+        # quantity: params[:quantity] || 1 # Commented after bug 03072022
       )
     else
       @cart_product = CartProduct.find_by(cart_id: current_user.cart.id, product_id: @product.id)
