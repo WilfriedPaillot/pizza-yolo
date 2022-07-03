@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'restaurants/index'
   root to: 'static_pages#homepage'
   devise_for :users
   resources :users, only: [:show, :edit, :update]
@@ -7,6 +6,7 @@ Rails.application.routes.draw do
   resources :carts
   resources :cart_products
   resources :orders
+  resources :restaurants
 
   scope "/checkout" do
     post "create", to: "checkout#create", as: "checkout_create"
