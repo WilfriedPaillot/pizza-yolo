@@ -11,12 +11,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user.update(user_params)
-    respond_to do |format|
-      if @user.save
+    @user = User.find(params[:id])
+    if @user.update_columns(restaurant_id: user_params[:restaurant_id])
+      respond_to do |format|
         format.html { redirect_to @user, notice: 'Votre profil a été mis à jour.' }
         format.js { }
-      else
+      end
+    else
+      respond_to do |format|
         format.html { render :edit, notice: 'Votre profil n\'a pas pu être mis à jour.' }
       end
     end
@@ -31,6 +33,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :address, :city, :phone, :zipcode, restaurants: [])
+    # params.require(:user).permit(:firstname, :lastname, :address, :city, :phone, :zipcode, :restaurant_id)
+    params.require(:user).permit(:restaurant_id)
   end
 end
