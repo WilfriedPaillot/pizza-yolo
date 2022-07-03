@@ -1,8 +1,11 @@
 class User < ApplicationRecord
+  geocoded_by :full_address
+  after_validation :geocode, if: :full_address_changed?
+  before_save :set_default_restaurant
+
   after_initialize :set_default_role, :if => :new_record?
-  after_create :send_welcome_email 
   after_save :set_user_cart
-  after_update :set_favorite_restaurant
+  after_create :send_welcome_email 
 
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
@@ -32,7 +35,7 @@ class User < ApplicationRecord
     length: { is: 5 }, 
   on: :update
   validates :city, presence: true, 
-    length: { minimum: 2, maximum: 20 }, 
+    length: { minimum: 2, maximum: 30 }, 
     format: { with: /\A[a-zA-Z\-\'\s\é\è\ê\ç]+\z/ }, 
   on: :update
   validates :phone, presence: true, 
@@ -61,6 +64,20 @@ class User < ApplicationRecord
     "#{firstname.capitalize} #{lastname.upcase}"
   end
 
+  def full_address
+    # [address, zipcode, city].compact.join(', ')
+    [zipcode, city].compact.join(', ')
+  end
+
+  def full_address_changed?
+    # self.address_changed? || self.zipcode_changed? || self.city_changed?
+    self.zipcode_changed? || self.city_changed?
+  end
+
+  def profile_complete?
+    !(self.firstname && self.lastname && self.address && self.zipcode && self.city && self.phone).blank?
+  end
+
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_now
   end
@@ -74,11 +91,10 @@ class User < ApplicationRecord
     self.cart ||= Cart.create(user: self)
   end
 
-  def set_favorite_restaurant
-    if self.restaurant.nil?
-      restaurant = Restaurant.find_by(zipcode: self.zipcode) 
-      self.update!(restaurant: restaurant) unless restaurant.nil? 
-    end
+  def set_default_restaurant
+    # default_restaurant = Restaurant.near(self.to_coordinates).first
+    # self.restaurant = default_restaurant
+    self.restaurant = Restaurant.near(self.to_coordinates, 15).first
   end
 
 end
