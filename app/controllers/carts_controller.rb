@@ -32,6 +32,7 @@ class CartsController < ApplicationController
   end
 
   def destroy
+    @cart = current_user.cart # Added after bug 03072022
     @cart.cart_products.destroy_all
     respond_to do |format|
       format.html { redirect_to @cart, notice: 'Cart was successfully destroyed.' }
