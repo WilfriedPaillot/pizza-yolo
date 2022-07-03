@@ -17,8 +17,8 @@
         <p><%= @product.description %></p>
       </div>
       <div class="d-flex justify-content-between">
-        <%= link_to 'Ajouter au panier', cart_products_path(id:@product), method: :post, class:'btn-custom p-3' %>
-        <%= link_to 'La carte', :products, class:'btn-custom p-3' %>
+        <%= link_to 'Ajouter au panier', cart_products_path(id:@product), method: :post, class:'btn btn-custom p-3' %>
+        <%= link_to 'La carte', :products, class:'btn btn-custom p-3' %>
       </div>
     </div>
   </div>
