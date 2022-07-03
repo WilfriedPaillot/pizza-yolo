@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'restaurants/index'
   root to: 'static_pages#homepage'
   devise_for :users
   resources :users, only: [:show, :edit, :update]
