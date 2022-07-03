@@ -31,7 +31,8 @@ class Restaurant < ApplicationRecord
     format: { with: /\A[0]{1}[1-7|9]{1}[0-9]{8}\z/ }
 
   def full_address
-    [address, zipcode, city].compact.join(', ')
+    # [address, zipcode, city].compact.join(', ')
+    [zipcode, city].compact.join(', ')
   end
 
 end
