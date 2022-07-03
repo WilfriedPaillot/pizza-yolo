@@ -42,11 +42,15 @@
       <h2>Mon restaurant préféré</h2>
       <hr>
     <p id="selected_restaurant" class="">
+    <% if @user.profile_complete? %>
       <% if @user.restaurant.nil? %>
-        <%= link_to :user, remote: true do%>
-          A renseigner
-          <i class="bi bi-plus-circle"></i>
-        <%end%>
+        <div class="alert alert-info" role="alert">
+          <p>Aucun restaurant trouvé à moins de 20km de votre domicile. Merci de le sélectionner manuellement.</p> 
+          <%= form_for @user do |f| %>
+            <%= f.collection_select :restaurant_id, Restaurant.near(@user.to_coordinates, 50, order: 'distance').limit(3), :id, :city, class: 'form-control' %>
+            <%= f.submit 'Sélectionner', class: 'btn btn-custom' %>
+          <%end%>
+        </div>
       <% else %>
       <p> <strong>Nom : </strong><%= @user.restaurant.name %></p>
       <p> <strong>Adresse :</strong> <%= @user.restaurant.address %></p>
@@ -56,6 +60,11 @@
       <p> <strong>Email :</strong> <%= @user.restaurant.email %></p>
       <%= link_to 'Changer', :user, class: 'btn btn-lg btn-custom', remote: true %>
       <% end %>
+      <%else %>
+      <div class="alert alert-warning" role="alert">
+        <p>Merci de compléter votre profil</p>
+      </div>
+      <%end %>
     </p>
   </div>
 </section>
