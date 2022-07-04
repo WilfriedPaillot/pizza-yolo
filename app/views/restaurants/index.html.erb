@@ -25,18 +25,16 @@
             </div>
             <div class="d-flex flex-column align-items-center my-3">
               <span>Sélectionner comme préféré</span>
-              <%= form_for current_user do |f| %>
-                <%= f.hidden_field :restaurant_id, value: restaurant.id %>
-                <%= button_tag '', class: 'btn btn-custom' do %>
-                  <div id="heart">
-                    <% if restaurant == current_user.restaurant %>
-                      <i class="bi bi-heart-fill"></i>
+                <%= form_for current_user, remote: true do |f| %>
+                  <%= f.hidden_field :restaurant_id, value: restaurant.id %>
+                  <%= button_tag '', id: "heartButton", class: 'btn btn-custom' do %>
+                    <% if current_user.restaurant == restaurant %>
+                      <i class="bi-heart-fill"></i>
                     <% else %>
-                      <i class="bi bi-heart"></i>
+                      <i class="bi-heart"></i>
                     <% end %>
-                  </div> 
-                <%end%>
-              <%end %>
+                  <% end %>
+                <% end %>
             </div>
           </div>
         </div>
