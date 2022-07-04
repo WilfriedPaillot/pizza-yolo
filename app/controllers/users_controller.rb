@@ -12,10 +12,11 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+    @restaurant = Restaurant.find(params[:user][:restaurant_id])
     if @user.update_columns(restaurant_id: user_params[:restaurant_id])
       respond_to do |format|
         format.html { redirect_to @user, notice: 'Votre profil a été mis à jour.' }
-        format.js { }
+        format.js { @restaurant }
       end
     else
       respond_to do |format|
