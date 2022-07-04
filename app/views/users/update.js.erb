@@ -1,0 +1,8 @@
+document.querySelectorAll('#edit_user_<%=current_user.id%>').forEach(function(element) {
+  if (element.querySelector('#user_restaurant_id').value == <%= @restaurant.id %>) {
+    element.lastElementChild.innerHTML = '<i class="bi-heart-fill"></i>';
+  } else {
+    element.lastElementChild.innerHTML = '<i class="bi-heart"></i>';
+  }
+});
+
