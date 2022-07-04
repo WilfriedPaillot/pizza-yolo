@@ -9,4 +9,4 @@ document.getElementById('cp_<%=@cart_product.id%>').innerHTML = "";
 <%end%>
 
 document.getElementById('total_cart').innerHTML = ""
-document.getElementById('total_cart').innerHTML = "TOTAL : " + <%= sprintf('%.2f', @cart_product.cart.total_price) %> + " &euro;";
+document.getElementById('total_cart').innerHTML = "TOTAL : <%= sprintf('%.2f', @cart_product.cart.total_price) %>  &euro;";
