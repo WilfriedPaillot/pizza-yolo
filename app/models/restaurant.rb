@@ -2,7 +2,8 @@ class Restaurant < ApplicationRecord
   geocoded_by :full_address
   after_validation :geocode, :if => :new_record?
 
-  has_many :products
+  has_many :restaurant_products
+  has_many :products, through: :restaurant_products
   has_many :comments, dependent: :destroy
   has_many :orders, dependent: :destroy
 
