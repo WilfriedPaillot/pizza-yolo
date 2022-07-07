@@ -23,6 +23,7 @@
               <%= restaurant.zipcode %> <%= restaurant.city %>
             </p>
             </div>
+            <% if user_signed_in? %>
             <div class="d-flex flex-column align-items-center my-3">
               <span>Sélectionner comme préféré</span>
                 <%= form_for current_user, remote: true do |f| %>
@@ -36,6 +37,7 @@
                   <% end %>
                 <% end %>
             </div>
+            <% end %>
           </div>
         </div>
       </div>
