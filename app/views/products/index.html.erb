@@ -33,7 +33,11 @@
             <p class="card-text"><%= product.description %></p>
             <div class="d-flex justify-content-evenly">
               <%= link_to 'Découvrir', product, class:'btn btn-custom p-3' %>
-              <%= link_to 'Ajouter au panier', cart_products_path(id:product), method: :post, class:'btn btn-custom p-3', remote: true %>
+              <% if user_signed_in? %>
+                <%= link_to 'Ajouter au panier', cart_products_path(id:product), method: :post, class:'btn btn-custom p-3', remote: true %>
+              <% else %>
+                <%= link_to 'Se connecter', new_user_session_path, class:'btn btn-custom p-3' %>
+              <% end %>
             </div>
           </div>
         </div>
