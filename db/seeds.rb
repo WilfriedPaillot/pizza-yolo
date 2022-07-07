@@ -76,33 +76,33 @@ p "#{User.last.email} has been created as an #{User.last.role}"
   )
   p "#{User.last.email} has been created as an #{User.last.role}"
   
-  @address[rand(0..@address.length - 1)] do |address|
+  random = rand(0..@address.length - 1)
+    @zipcode = @address[random]['zipcode']
+    @city = @address[random]['city']
+
+  p "Address: #{@city}"
+  p "Zip code: #{@zipcode}"
+
   User.last.update!(
-    firstname: Faker::Name.first_name,
-    lastname: Faker::Name.last_name,
+    firstname: @first_name,
+    lastname: @last_name,
     address: Faker::Address.street_address,
-    zipcode: address['zipcode'],
-    city: address['city'],
+    zipcode: @zipcode,
+    city: @city,
     phone: @phones.sample,
-    restaurant_id: Restaurant.find(rand(1..Restaurant.count)).id
-    )
-  end
+  )
+
+  p "User.last.firstname: #{User.last.email} updated with the following information:"
+  p "First name: #{User.last.firstname}"
+  p "Last name: #{User.last.lastname}"
+  p "Address: #{User.last.address}"
+  p "Zip code: #{User.last.zipcode}"
+  p "City: #{User.last.city}"
 end
 
 p "#{User.where(role: 0).count} users have been created"
 p "-----------------------------------------------------"
 p ""
-User.where(role: 0).each do |user|
-  p "#{user.email} has been generate with the following information:"
-  p "First name: #{user.firstname}"
-  p "Last name: #{user.lastname}"
-  p "Address: #{user.address}"
-  p "Zip code: #{user.zipcode}"
-  p "City: #{user.city}"
-  p "Phone: #{user.phone}"
-  p "Favorite restaurant: #{user.restaurant_id}"
-  p ""
-end
 
 @pizzas = [
   {	'name' => 'Margarita',
