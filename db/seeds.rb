@@ -209,3 +209,13 @@ Category.create!(name: 'boisson', description: 'Large choix de sodas')
 p "-----------------------------------------------------"
 p "And voila!"
 p "-----------------------------------------------------"
+
+Order.create!(reference: "test1", total: 99.98, user_id: User.last.id, restaurant_id: 1, scheduled_time: Time.now)
+  # p "Order #{Order.last.reference} has been created"
+  OrderProduct.create!(order_id: Order.last.id, product_id: 1, quantity: 2)
+  OrderProduct.create!(order_id: Order.last.id, product_id: 3)
+  
+Order.create!(reference: "test2", total: 59.95, user_id: User.last.id, restaurant_id: 1, scheduled_time: Time.now)
+  # p "Order #{Order.last.reference} has been created"
+  OrderProduct.create!(order_id: Order.last.id, product_id: 2, quantity: 3)
+  OrderProduct.create!(order_id: Order.last.id, product_id: 3, quantity: 2)
