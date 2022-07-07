@@ -28,7 +28,7 @@
           <div class="card-body">
             <div class="d-flex-column text-center">
               <h2><%= product.name %></h2>
-              <p class="fs-3"><%= product.price %><span class="fs-2"> &euro;</span></p>
+              <p class="fs-3"><%= sprintf('%.2f', product.price) %><span class="fs-2"> &euro;</span></p>
             </div>
             <p class="card-text"><%= product.description %></p>
             <div class="d-flex justify-content-evenly">
