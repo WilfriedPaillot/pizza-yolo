@@ -19,7 +19,7 @@
     <div class="row mt-3">
     <hr>
       <div class="col-6">
-        <h4 id="order_infos">Total: <%=order.total%> &euro;</h4>
+        <h4 id="order_infos">Total: <%= sprintf('%.2f', order.total) %> &euro;</h4>
       </div> 
       <div class="col-6">
         <p class="text-muted text-end">
