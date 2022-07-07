@@ -21,8 +21,8 @@ class Restaurant < ApplicationRecord
     length: { is: 5 }, 
     format: { with: /\A(([0-8][1-9])|(9[0-5]))[0-9]{3}|((97[1-8])[0-9]{2})|((98[1-8])[0-9]{2})|99138\z/ }
   validates :city, presence: true, 
-    length: { maximum: 25 }, 
-    format: { with: /\A[a-zA-Z\s,'.-éèêçà]+\z/ }
+    length: { maximum: 25, message: "is too long (maximum is 25 characters)" },
+    format: { with: /\A[a-zA-Z\s'-éèêçà]+\z/ , message: "is not a valid format" }
   validates :email, presence: true,
     length: { maximum: 35 },
     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
