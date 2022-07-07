@@ -43,13 +43,17 @@
       <hr>
     <p id="selected_restaurant" class="">
     <% if @user.profile_complete? %>
-      <% if @user.restaurant.nil? %>
+      <% if @user.restaurant.nil? && Restaurant.near(@user.to_coordinates, 50) != [] %>
         <div class="alert alert-info" role="alert">
           <p>Aucun restaurant trouvé à moins de 20km de votre domicile. Merci de le sélectionner manuellement.</p> 
           <%= form_for @user do |f| %>
             <%= f.collection_select :restaurant_id, Restaurant.near(@user.to_coordinates, 50, order: 'distance').limit(3), :id, :city, class: 'form-control' %>
             <%= f.submit 'Sélectionner', class: 'btn btn-custom' %>
           <%end%>
+        </div>
+      <% elsif Restaurant.near(@user.to_coordinates, 50).empty? %>
+        <div class="alert alert-warning" role="alert">
+          <p>Nous sommes désolé mais aucun restaurant ne ce trouve encore dans un rayon de 50Km de <%= @user.city %></p>
         </div>
       <% else %>
       <p> <strong>Nom : </strong><%= @user.restaurant.name %></p>
