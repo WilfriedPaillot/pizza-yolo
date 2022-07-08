@@ -4,6 +4,11 @@ class Order < ApplicationRecord
   has_many :order_products
   has_many :products, through: :order_products
 
+  enum order_type: [:withdrawal, :delivery]
+  enum order_status: [:registered, :in_progress, :completed, :withdrawn, :delivered]
+  # Not used:  Will be pulled from Stripe
+  # enum paiement_status: { canceled: 0, paid: 1 }
+
   validates :reference, presence: true,
     length: { minimum: 5, maximum: 255 },
     format: { with: /\A[a-zA-Z0-9]+\z/ }
