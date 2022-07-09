@@ -53,7 +53,8 @@ class CheckoutController < ApplicationController
       user_id: current_user.id,
       total: (@payment.amount.to_f) / 100,
       reference: @payment.created,
-      invoice_url: @payment.charges.data[0].receipt_url
+      invoice_url: @payment.charges.data[0].receipt_url,
+      restaurant_id: current_user.restaurant.id
     )
 
     @cart_products = current_user.cart.cart_products
