@@ -25,7 +25,11 @@
 <hr>
   <p class='fs-3'>
     <span id="total_cart">TOTAL : <%= sprintf('%.2f', @cart.total_price) %> &euro; <br></span>
-    <%= link_to "Payer", checkout_create_path, method: :post, remote: true, class: 'btn btn-custom' %>
+    <% unless current_user.restaurant.nil? %>
+      <%= link_to "Payer", checkout_create_path, method: :post, remote: true, class: 'btn btn-custom' %>
+      <% else %>
+      <%= link_to "Choisir mon restaurant", user_path(current_user), class: 'btn btn-custom' %>
+    <% end %>
   </p> 
 <hr>
   <%= link_to "Retour", products_path, class: 'btn btn-custom' %>
